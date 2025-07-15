@@ -1,46 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen font-sans">
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800">Dashboard</h2>
+    </x-slot>
 
-  <!-- Navbar -->
-  <nav class="bg-white shadow px-6 py-4 flex justify-between items-center">
-    <h1 class="text-xl font-bold">Dashboard</h1>
-    <form method="POST" action="/logout">
-  @csrf
-  <button type="submit" class="text-gray-700 hover:text-blue-500">
-    Logout
-  </button>
-</form>
-  </nav>
+    <div class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {{-- Mahasiswa --}}
+        <div class="bg-white p-6 rounded-2xl shadow hover:shadow-md transition">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-sm text-gray-500">Mahasiswa</h3>
+                    <p class="text-3xl font-bold text-blue-600">{{ $jumlahMahasiswa }}</p>
+                </div>
+                <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20h6m-6 0a2 2 0 01-2-2H5a4 4 0 014-4h1m0 0a2 2 0 012-2h2a2 2 0 012 2m0 0v4m0 0a2 2 0 002 2" />
+                    </svg>
+                </div>
+            </div>
+        </div>
 
-  <!-- Sidebar + Content -->
-  <div class="flex">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-white shadow h-screen p-4">
-      <ul class="space-y-2">
-        <li><a href="#" class="block text-gray-800 hover:text-blue-500">Home</a></li>
-        <li><a href="/dashboard/mahasiswa" class="block text-gray-800 hover:text-blue-500">Mahasiswa</a></li>
-        <li><a href="#" class="block text-gray-800 hover:text-blue-500">Settings</a></li>
-      </ul>
-    </aside>
+        {{-- Dosen --}}
+        <div class="bg-white p-6 rounded-2xl shadow hover:shadow-md transition">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-sm text-gray-500">Dosen</h3>
+                    <p class="text-3xl font-bold text-green-600">{{ $jumlahDosen }}</p>
+                </div>
+                <div class="bg-green-100 text-green-600 p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 14l9-5-9-5-9 5 9 5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 14l6.16-3.422A12.083 12.083 0 0112 21.5a12.083 12.083 0 01-6.16-10.922L12 14z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
 
-    <!-- Main Content -->
-    <main class="flex-1 p-6">
-      <h2 class="text-2xl font-semibold mb-4">Selamat Datang!</h2>
-      <p class="text-gray-700 mb-6">Silakan pilih menu di sidebar.</p>
+        {{-- Prodi --}}
+        <div class="bg-white p-6 rounded-2xl shadow hover:shadow-md transition">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-sm text-gray-500">Prodi</h3>
+                    <p class="text-3xl font-bold text-purple-600">{{ $jumlahProdi }}</p>
+                </div>
+                <div class="bg-purple-100 text-purple-600 p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M9.75 3h4.5a.75.75 0 01.75.75v.75H9v-.75a.75.75 0 01.75-.75zM3 7.5A1.5 1.5 0 014.5 6h15a1.5 1.5 0 011.5 1.5v9A1.5 1.5 0 0119.5 18h-15A1.5 1.5 0 013 16.5v-9z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
 
-      <!-- Tombol ke /dashboard/mahasiswa -->
-      <a href="/dashboard/mahasiswa" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-        Kelola Mahasiswa
-      </a>
-    </main>
-  </div>
-
-</body>
-</html>
+        {{-- Mata Kuliah --}}
+        <div class="bg-white p-6 rounded-2xl shadow hover:shadow-md transition">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-sm text-gray-500">Mata Kuliah</h3>
+                    <p class="text-3xl font-bold text-red-600">{{ $jumlahMataKuliah }}</p>
+                </div>
+                <div class="bg-red-100 text-red-600 p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 6v6l4 2" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

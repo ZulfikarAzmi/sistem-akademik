@@ -12,16 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mahasiswas', function (Blueprint $table) {
-            $table->id();
-            $table->string('nim')->unique();
-            $table->string('nama');
-            $table->string('email')->unique();
-            $table->string('no_hp')->nullable();
-            $table->enum('jenis_kelamin', ['L', 'P']);
-            $table->date('tanggal_lahir');
-            $table->string('alamat')->nullable();
-            $table->timestamps();
-        });
+        $table->id();
+        $table->string('nim')->unique();
+        $table->string('nama');
+        $table->string('email')->unique();
+        $table->string('no_hp')->nullable();
+        $table->enum('jenis_kelamin', ['L', 'P']);
+        $table->date('tanggal_lahir');
+        $table->text('alamat')->nullable();
+        $table->enum('tipe', ['reguler', 'transfer']);
+        $table->year('tahun_masuk');
+        $table->foreignId('prodi_id')->constrained()->onDelete('cascade');
+        $table->timestamps();
+    });
     }
 
     /**

@@ -3,15 +3,19 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\DosenController;
+use App\Http\Controllers\MataKuliahController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+    
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -23,6 +27,24 @@ Route::prefix('dashboard/mahasiswa')->group(function () {
     Route::get('/', [MahasiswaController::class, 'index']);
     Route::get('/add', [MahasiswaController::class, 'create']);
     Route::post('/add', [MahasiswaController::class, 'store']);
+});
+
+Route::prefix('dashboard')->group(function () {
+    Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.index');
+    Route::get('/dosen/add', [DosenController::class, 'create'])->name('dosen.create');
+    Route::post('/dosen', [DosenController::class, 'store'])->name('dosen.store');
+});
+
+
+// Prodi Routes
+Route::get('/dashboard/prodi', [ProdiController::class, 'index'])->name('prodi.index');
+Route::get('/dashboard/prodi/add', [ProdiController::class, 'create'])->name('prodi.create');
+Route::post('/dashboard/prodi', [ProdiController::class, 'store'])->name('prodi.store');
+
+Route::prefix('dashboard')->group(function () {
+    Route::get('/mata-kuliah', [MataKuliahController::class, 'index'])->name('mata-kuliah.index');
+    Route::get('/mata-kuliah/add', [MataKuliahController::class, 'create'])->name('mata-kuliah.create');
+    Route::post('/mata-kuliah', [MataKuliahController::class, 'store'])->name('mata-kuliah.store');
 });
 
 
