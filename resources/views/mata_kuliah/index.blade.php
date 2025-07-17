@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="p-6">
-        <a href="{{ route('mata-kuliah.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">+ Tambah Mata Kuliah</a>
+        <a href="{{ route('mata-kuliah.create') }}" class="bg-blue-500 text-black px-4 py-2 rounded mb-4 inline-block">+ Tambah Mata Kuliah</a>
 
         <table class="table-auto w-full border">
             <thead class="bg-gray-100">

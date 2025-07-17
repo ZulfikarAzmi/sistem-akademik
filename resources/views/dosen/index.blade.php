@@ -8,7 +8,7 @@
             <div class="mb-4 text-green-600">{{ session('success') }}</div>
         @endif
 
-        <a href="{{ route('dosen.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">
+        <a href="{{ route('dosen.create') }}" class="bg-blue-500 text-black px-4 py-2 rounded mb-4 inline-block">
             + Tambah Dosen
         </a>
 

@@ -51,17 +51,28 @@ class ProdiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $prodi = Prodi::findOrFail($id);
+        return view('prodi.edit', compact('prodi'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|max:255',
+        ]);
+
+        $prodi = Prodi::findOrFail($id);
+        $prodi->update([
+            'nama' => $request->nama
+        ]);
+
+        return redirect()->route('prodi.index')
+            ->with('success', 'Prodi berhasil diperbarui');
     }
 
     /**
@@ -69,6 +80,16 @@ class ProdiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+        $prodi = Prodi::findOrFail($id);
+        $prodi->delete();
+
+        return redirect()->route('prodi.index')
+            ->with('success', 'Prodi berhasil dihapus');
+            
+        } catch (\Exception $e) {
+        return redirect()->route('prodi.index')
+            ->with('error', 'Gagal menghapus prodi: ' . $e->getMessage());
+        }
     }
 }

@@ -43,6 +43,10 @@ Route::prefix('dashboard')->group(function () {
 Route::get('/dashboard/prodi', [ProdiController::class, 'index'])->name('prodi.index');
 Route::get('/dashboard/prodi/add', [ProdiController::class, 'create'])->name('prodi.create');
 Route::post('/dashboard/prodi', [ProdiController::class, 'store'])->name('prodi.store');
+Route::get('/dashboard/prodi/{id}/edit', [ProdiController::class, 'edit'])->name('prodi.edit');
+Route::put('/dashboard/prodi/{id}', [ProdiController::class, 'update'])->name('prodi.update');
+Route::delete('/dashboard/prodi/{id}', [ProdiController::class, 'destroy'])->name('prodi.destroy');
+
 
 Route::prefix('dashboard')->group(function () {
     Route::get('/mata-kuliah', [MataKuliahController::class, 'index'])->name('mata-kuliah.index');

@@ -15,4 +15,14 @@
         {{ request()->is('prodi*') ? 'bg-indigo-600 text-white shadow' : 'text-gray-600 hover:bg-gray-100 hover:text-indigo-600' }}">
         Prodi
     </a>
+    <a href="{{ url('dashboard/dosen') }}"
+        class="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200
+        {{ request()->is('prodi*') ? 'bg-indigo-600 text-white shadow' : 'text-gray-600 hover:bg-gray-100 hover:text-indigo-600' }}">
+        Dosen
+    </a>
+    <a href="{{ url('dashboard/mata-kuliah') }}"
+        class="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200
+        {{ request()->is('prodi*') ? 'bg-indigo-600 text-white shadow' : 'text-gray-600 hover:bg-gray-100 hover:text-indigo-600' }}">
+        Mata Kuliah
+    </a>
 </div>
