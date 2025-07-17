@@ -24,9 +24,12 @@ Route::middleware('auth')->group(function () {
 
 // Mahasiswa Routes
 Route::prefix('dashboard/mahasiswa')->group(function () {
-    Route::get('/', [MahasiswaController::class, 'index']);
+    Route::get('/', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
     Route::get('/add', [MahasiswaController::class, 'create']);
     Route::post('/add', [MahasiswaController::class, 'store']);
+    Route::get('/{id}/edit', [MahasiswaController::class, 'edit'])->name('mahasiswa.edit');
+    Route::put('/{id}', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
+    Route::delete('/{id}', [MahasiswaController::class, 'destroy'])->name('mahasiswa.destroy');
 });
 
 Route::prefix('dashboard')->group(function () {

@@ -21,4 +21,12 @@ class Mahasiswa extends Model
         'tanggal_lahir',
         'alamat',
     ];
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class);  
+    }
+
+
+
 }

@@ -13,7 +13,7 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswa = Mahasiswa::all();
+        $mahasiswa = Mahasiswa::with(['prodi'])->get();
         return view('mahasiswa.index', compact('mahasiswa')); // file: resources/views/mahasiswa/index.blade.php
 
     }
@@ -89,24 +89,47 @@ class MahasiswaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $prodis = Prodi::all();
+
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        return view('mahasiswa.edit', compact('mahasiswa', 'prodis'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string',
+            'nim' => 'required|string|unique:mahasiswas,nim,' . $id,
+            'email' => 'required|email|unique:mahasiswas,email,' . $id,
+        ]);
+
+
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswa->update($request->all());
+
+        return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+         try {
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswa->delete();
+        
+        return redirect()->route('mahasiswa.index')
+            ->with('success', 'Mahasiswa berhasil dihapus');
+            
+        } catch (\Exception $e) {
+        return redirect()->route('mahasiswa.index')
+            ->with('error', 'Gagal menghapus mahasiswa: ' . $e->getMessage());
+        }
     }
 }
