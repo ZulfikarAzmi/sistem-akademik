@@ -13,9 +13,9 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswa = Mahasiswa::with(['prodi'])->get();
-        return view('mahasiswa.index', compact('mahasiswa')); // file: resources/views/mahasiswa/index.blade.php
+        $mahasiswa = Mahasiswa::with('prodi')->paginate(10); 
 
+        return view('mahasiswa.index', compact('mahasiswa'));
     }
 
     /**
