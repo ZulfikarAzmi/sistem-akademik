@@ -11,10 +11,16 @@ class ProdiController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $prodis = Prodi::all();
-        return view('.prodi.index', compact('prodis'));
-    }
+{
+    // ambil data prodi per 10 item
+    $prodis = Prodi::orderBy('nama')->paginate(10);
+
+    // total semua prodi (bukan cuma halaman ini)
+    $totalProdi = Prodi::count();
+
+    return view('prodi.index', compact('prodis', 'totalProdi'));
+}
+
 
     /**
      * Show the form for creating a new resource.
