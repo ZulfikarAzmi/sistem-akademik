@@ -32,4 +32,33 @@ class MataKuliahController extends Controller
 
         return redirect()->route('mata-kuliah.index')->with('success', 'Mata kuliah berhasil ditambahkan!');
     }
+
+    public function edit($id)
+    {
+        $mataKuliah = MataKuliah::findOrFail($id);
+        $dosens = Dosen::all();
+        return view('mata_kuliah.edit', compact('mataKuliah', 'dosens'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'kode' => 'required|unique:mata_kuliahs,kode,' . $id,
+            'nama' => 'required',
+            'dosen_id' => 'required|exists:dosens,id',
+        ]);
+
+        $mataKuliah = MataKuliah::findOrFail($id);
+        $mataKuliah->update($request->all());
+
+        return redirect()->route('mata-kuliah.index')->with('success', 'Mata kuliah berhasil diperbarui!');
+    }
+
+    public function destroy($id)
+    {
+        $mataKuliah = MataKuliah::findOrFail($id);
+        $mataKuliah->delete();
+
+        return redirect()->route('mata-kuliah.index')->with('success', 'Mata kuliah berhasil dihapus!');
+    }
 }

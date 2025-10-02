@@ -99,6 +99,25 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <div class="flex space-x-2">
+                                            <td class="px-4 py-2 flex space-x-2">
+    <!-- Tombol Edit -->
+    <a href="{{ route('mata-kuliah.edit', $mk->id) }}" 
+       class="px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+        Edit
+    </a>
+
+    <!-- Tombol Hapus -->
+    <form action="{{ route('mata-kuliah.destroy', $mk->id) }}" method="POST" 
+          onsubmit="return confirm('Yakin mau hapus data mata kuliah ini?')">
+        @csrf
+        @method('DELETE')
+        <button type="submit" 
+                class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">
+            Hapus
+        </button>
+    </form>
+</td>
+
                                         </div>
                                     </td>
                                 </tr>
