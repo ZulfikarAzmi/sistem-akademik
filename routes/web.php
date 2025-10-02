@@ -36,6 +36,9 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.index');
     Route::get('/dosen/add', [DosenController::class, 'create'])->name('dosen.create');
     Route::post('/dosen', [DosenController::class, 'store'])->name('dosen.store');
+    Route::get('/dosen/{id}/edit', [DosenController::class, 'edit'])->name('dosen.edit');
+    Route::put('/dosen/{id}', [DosenController::class, 'update'])->name('dosen.update');
+    Route::delete('/dosen/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy');
 });
 
 

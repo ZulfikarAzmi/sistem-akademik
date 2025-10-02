@@ -96,7 +96,23 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <div class="flex space-x-2">
+                                           <td class="px-4 py-2">
+                                                <a href="{{ route('dosen.edit', $dosen->id) }}" 
+                                                    class="text-indigo-600 hover:underline">Edit
+                                                </a>
+                                            </td>
                                         </div>
+                                    </td>
+                                    <td>
+                                         <form action="{{ route('dosen.destroy', $dosen->id) }}"        method="POST" 
+                                            onsubmit="return confirm('Yakin mau hapus data ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" 
+                                                    class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">
+                                                Hapus
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @empty

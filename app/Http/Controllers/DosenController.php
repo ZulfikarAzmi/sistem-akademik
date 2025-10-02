@@ -31,4 +31,34 @@ class DosenController extends Controller
 
         return redirect()->route('dosen.index')->with('success', 'Dosen berhasil ditambahkan');
     }
+
+    public function edit($id)
+    {
+        $dosen = Dosen::findOrFail($id);
+        return view('dosen.edit', compact('dosen'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $dosen = Dosen::findOrFail($id);
+
+        $request->validate([
+            'nip' => 'required|unique:dosens,nip,' . $dosen->id,
+            'nama' => 'required',
+            'email' => 'required|email|unique:dosens,email,' . $dosen->id,
+            'no_hp' => 'nullable',
+        ]);
+
+        $dosen->update($request->all());
+
+        return redirect()->route('dosen.index')->with('success', 'Dosen berhasil diperbarui');
+    }
+
+    public function destroy($id)
+    {
+        $dosen = Dosen::findOrFail($id);
+        $dosen->delete();
+
+        return redirect()->route('dosen.index')->with('success', 'Dosen berhasil dihapus');
+    }
 }
