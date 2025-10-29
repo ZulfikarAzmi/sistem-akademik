@@ -1,9 +1,9 @@
 <!-- Navigation Links -->
 <div class="hidden sm:flex sm:items-center sm:space-x-1 ms-10">
-    <a href="{{ route('dashboard') }}"
+    <a href="{{ route('dashboard.admin') }}"
         class="px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 relative
-        {{ request()->routeIs('dashboard') ? 'bg-indigo-50 text-indigo-700 font-semibold' : 'text-gray-600 hover:bg-gray-50 hover:text-indigo-600' }}">
-        @if(request()->routeIs('dashboard'))
+        {{ request()->routeIs('dashboard.admin') ? 'bg-indigo-50 text-indigo-700 font-semibold' : 'text-gray-600 hover:bg-gray-50 hover:text-indigo-600' }}">
+        @if(request()->routeIs('dashboard.admin'))
         <span class="absolute -left-1 top-1/2 transform -translate-y-1/2 w-1 h-6 bg-indigo-600 rounded-full"></span>
         @endif
         <i class="fas fa-chart-pie mr-2 text-xs opacity-70"></i>

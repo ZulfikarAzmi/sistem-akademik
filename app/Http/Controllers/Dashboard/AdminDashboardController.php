@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-use App\Models\MataKuliah;
-use App\Models\Dosen;
 use App\Models\Mahasiswa;
+use App\Models\Dosen;
 use App\Models\Prodi;
+use App\Models\MataKuliah;
 
-class DashboardController extends Controller
+class AdminDashboardController extends Controller
 {
     public function index()
     {

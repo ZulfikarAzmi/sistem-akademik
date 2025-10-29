@@ -7,15 +7,35 @@ use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MataKuliahController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Dashboard\AdminDashboardController;
+use App\Http\Controllers\Dashboard\DosenDashboardController;
+use App\Http\Controllers\Dashboard\MahasiswaDashboardController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-    
+// Route::get('/force-logout', function () {
+//     \Illuminate\Support\Facades\Auth::logout();
+//     session()->invalidate();
+//     session()->regenerateToken();
+//     return 'Semua session sudah di-reset!';
+// });
+
+Route::middleware(['auth', 'role:dosen'])
+    ->get('/dosen/dashboard', [DosenDashboardController::class, 'index'])
+    ->name('dashboard.dosen');
+
+Route::middleware(['auth','role:mahasiswa'])
+    ->get('/mahasiswa/dashboard', [MahasiswaDashboardController::class, 'index'])
+    ->name('dashboard.mahasiswa');
+
+
+Route::middleware(['auth','role:admin'])
+    ->get('/dashboard', [AdminDashboardController::class, 'index'])
+    ->name('dashboard.admin'); 
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -32,6 +52,7 @@ Route::prefix('dashboard/mahasiswa')->group(function () {
     Route::delete('/{id}', [MahasiswaController::class, 'destroy'])->name('mahasiswa.destroy');
 });
 
+// Dosen Routes
 Route::prefix('dashboard')->group(function () {
     Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.index');
     Route::get('/dosen/add', [DosenController::class, 'create'])->name('dosen.create');
@@ -51,6 +72,7 @@ Route::put('/dashboard/prodi/{id}', [ProdiController::class, 'update'])->name('p
 Route::delete('/dashboard/prodi/{id}', [ProdiController::class, 'destroy'])->name('prodi.destroy');
 
 
+// Mata Kuliah Routes
 Route::prefix('dashboard')->group(function () {
     Route::get('/mata-kuliah', [MataKuliahController::class, 'index'])->name('mata-kuliah.index');
     Route::get('/mata-kuliah/add', [MataKuliahController::class, 'create'])->name('mata-kuliah.create');
