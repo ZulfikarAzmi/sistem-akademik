@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MataKuliah;
 use App\Models\Dosen;
+use App\Models\Prodi;
 
 class MataKuliahController extends Controller
 {
@@ -17,27 +18,34 @@ class MataKuliahController extends Controller
      public function create()
     {
         $dosens = Dosen::all();
-        return view('mata_kuliah.add', compact('dosens'));
+        $prodis = Prodi::all();
+        return view('mata_kuliah.add', compact('dosens', 'prodis'));
     }
 
      public function store(Request $request)
     {
-        $request->validate([
-            'kode' => 'required|unique:mata_kuliahs,kode',
-            'nama' => 'required',
-            'dosen_id' => 'required|exists:dosens,id',
+        $validated = $request->validate([
+            'kode' => 'required|string|max:10',
+            'nama' => 'required|string|max:255',
+            'prodi_id' => 'required|exists:prodis,id',
+            'dosen_id' => 'nullable|exists:dosens,id',
+            'sks' => 'required|integer',
+            'semester' => 'required|integer',
+            'tipe' => 'required|in:wajib,pilihan',
         ]);
 
-        MataKuliah::create($request->all());
+        MataKuliah::create($validated);
 
-        return redirect()->route('mata-kuliah.index')->with('success', 'Mata kuliah berhasil ditambahkan!');
+        return redirect()->route('mata-kuliah.index')->with('success', 'Mata kuliah berhasil ditambahkan.');
     }
+
 
     public function edit($id)
     {
         $mataKuliah = MataKuliah::findOrFail($id);
         $dosens = Dosen::all();
-        return view('mata_kuliah.edit', compact('mataKuliah', 'dosens'));
+        $prodis = Prodi::all();
+        return view('mata_kuliah.edit', compact('mataKuliah', 'dosens', 'prodis'));
     }
 
     public function update(Request $request, $id)
