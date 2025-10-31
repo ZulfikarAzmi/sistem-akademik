@@ -11,14 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mata_kuliahs', function (Blueprint $table) {
+           Schema::create('mata_kuliahs', function (Blueprint $table) {
             $table->id();
-            $table->string('kode'); // contoh: MKU101
+            $table->string('kode')->unique();
             $table->string('nama');
-            $table->unsignedBigInteger('dosen_id'); // relasi ke dosen
+            $table->unsignedBigInteger('prodi_id');
+            $table->unsignedBigInteger('dosen_id')->nullable();
+            $table->integer('sks');
+            $table->integer('semester');
+            $table->enum('tipe', ['wajib', 'pilihan']);
             $table->timestamps();
 
-            $table->foreign('dosen_id')->references('id')->on('dosens')->onDelete('cascade');
+            // relasi
+            $table->foreign('prodi_id')->references('id')->on('prodis')->onDelete('cascade');
+            $table->foreign('dosen_id')->references('id')->on('dosens')->onDelete('set null');
         });
     }
 
